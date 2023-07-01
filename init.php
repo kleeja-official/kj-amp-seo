@@ -21,7 +21,7 @@ $kleeja_plugin['kj_amp_seo']['information'] = [
     //settings page, if there is one (what after ? like cp=j_plugins)
     'settings_page' => 'cp=options&smt=general&smt=kj_amp_seo',
     // this plugin version
-    'plugin_version' => '1.1.1',
+    'plugin_version' => '1.1.2',
     // explain what is this plugin, why should i use it?
     'plugin_description' => [
         'en' => 'Add AMP support to download pages to enhance SEO for Kleeja',
@@ -188,11 +188,14 @@ $kleeja_plugin['kj_amp_seo']['functions'] = [
             return;
         }
 
-        global $tpl, $lang;
+        global $tpl, $lang, $usrcp;
 
         extract($args);
 
         $dir = $lang['DIR'];
+		
+        //is user ?
+        $user_is  = $usrcp->name() ? true : false;
 
         $side_menu = [
             1 => ['name' => 'profile', 'title' => $lang['PROFILE'], 'url' => $config['mod_writer'] ? 'profile.html' : 'ucp.php?go=profile', 'show' => $user_is],
@@ -238,6 +241,6 @@ $kleeja_plugin['kj_amp_seo']['functions'] = [
 
         echo $tpl->display('amp', __DIR__);
 
-        return ['show' => false];
+        return ['show_style' => false];
     }
 ];
